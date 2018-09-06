@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
+import { reject } from 'ramda'
 import Wrapper from '../../components/Wrapper'
 import Text from '../../components/Text'
 import UserCard from '../../components/UserCard'
 import Select from '../../components/Select'
-import './App.css'
+import { setItemToStorage, getItemFromStorage } from '../../utils/clientStorage'
 
+import './App.css'
 const headerText = 'Your team for this test'
 
 export default class App extends Component {
   state = {
-    isSelectOpen: false
+    isSelectOpen: false,
+    usersList: []
+  }
+
+  componentWillMount() {
+    const usersList = getItemFromStorage('users')
+    this.setState({
+      usersList
+    })
   }
 
   openSelect = () =>
@@ -17,11 +27,28 @@ export default class App extends Component {
       isSelectOpen: !this.state.isSelectOpen
     })
 
-  renderUser = (user = {}, key, mode) =>
+  updateList = usersList => {
+    setItemToStorage('users', usersList)
+    this.setState({ usersList })
+  }
+
+  putUser = user => {
+    const { usersList } = this.state
+    this.updateList([...usersList, user])
+  }
+
+  removeUser = id => {
+    const { usersList } = this.state
+    const updatedList = reject(item => item.id === id, usersList)
+    this.updateList(updatedList)
+  }
+
+  renderUser = (user = {}, key) =>
     <UserCard
       key={key}
       user={user}
       mode='user'
+      handleRemoveUser={this.removeUser}
     />
 
   renderHeader = () =>
@@ -33,7 +60,7 @@ export default class App extends Component {
 
   render() {
     const { users } = this.props
-    const { isSelectOpen } = this.state
+    const { isSelectOpen, usersList } = this.state
 
     return (
       <div className="app">
@@ -44,7 +71,7 @@ export default class App extends Component {
               mode='default'
               handleOpenSelect={this.openSelect}
             />
-            {users.map(
+            {usersList.map(
               (user, key) =>
                 this.renderUser(user, key)
             )}
@@ -52,8 +79,12 @@ export default class App extends Component {
           {isSelectOpen && <Select
             handleClickOutside={this.openSelect}
             users={users}
+            handlePutUser={this.putUser}
           />}
         </Wrapper>
+        <div className='app__loadmore' onClick={this.props.loadMore}>
+          Show All
+        </div>
       </div>
     )
   }

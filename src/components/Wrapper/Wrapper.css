@@ -1,11 +1,10 @@
 .wrapper {
-    border-top: 2px solid green;
-    border-bottom: 1px solid gray;
-    border-right: 1px solid gray;
-    border-left: 1px solid gray;
-    width: 100%;
-    display: flex;
-    height: auto;
-    flex-direction: column;
-    padding: 20px;
+  border-top: 2px solid green;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  padding: 20px;
 }

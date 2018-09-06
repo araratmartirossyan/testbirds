@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { isEmpty } from 'ramda'
+import { isEmpty, difference } from 'ramda'
 import ClickOutside from 'react-click-outside'
+import { getItemFromStorage } from '../../utils/clientStorage'
 import UserCard from '../UserCard'
 import Text from '../Text'
 import './Select.css'
@@ -15,17 +16,26 @@ export default class Select extends Component {
   }
 
   componentWillMount() {
+    this.updateUsersList()
+  }
+
+  updateUsersList = () => {
+    const { users } = this.props
+    const existingList = getItemFromStorage('users')
     this.setState({
-      userList: this.props.users
+      userList: difference(users, existingList),
     })
   }
 
-  handleChooseUser = () =>
-    console.log()
+  handleChooseUser = user => {
+    this.props.handlePutUser(user)
+    this.props.handleClickOutside()
+    this.updateUsersList()
+  }
 
   renderUserCard = (user, key) =>
     <UserCard
-      mode='user'
+      mode='selectList'
       user={user}
       key={key}
       chooseUser={this.handleChooseUser}
@@ -63,7 +73,7 @@ export default class Select extends Component {
   render() {
     const { filteredList, value } = this.state
     const { handleClickOutside } = this.props
-    const isShowUserList = !isEmpty(filteredList) && value.length > 0
+    const isShowUserList = !isEmpty(filteredList)
     return (
       <ClickOutside onClickOutside={handleClickOutside}>
         <div className='select'>

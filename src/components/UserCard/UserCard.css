@@ -4,18 +4,16 @@
   padding: 10px 10px;
   transition: background-color .3s ease;
 }
-
 .usercard:hover {
   background: rgba(85, 206, 24, 0.42);
 }
-
-.usercard__left-icon {
+.usercard__left-icon, .usercard__left-icon_user {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-size: cover;
+  margin-right: 10px;
 }
-
 .usercard__left-button {
   width: 40px;
   height: 40px;
@@ -25,11 +23,15 @@
   margin-right: 10px;
   transition: background-color .3s ease;
 }
-
 .usercard:hover .usercard__left-button {
   background: #fff;
 }
-
+.usercard:hover .usercard__left-close {
+  display: inherit;
+}
+.usercard:hover .usercard__left-icon_user {
+  display: none;
+}
 .usercard:hover .usercard__left-button:after,
 .usercard:hover .usercard__left-button:before
 {
@@ -63,4 +65,34 @@
   height: 15px;
   bottom: 5px;
   z-index: 9;
+}
+.usercard__left-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: none;
+  background: #fff;
+  margin-right: 10px;
+}
+.usercard__left-close:hover {
+  border: 1px solid orange;
+}
+.usercard__left-close:before, .usercard__left-close:after {
+  position: absolute;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: orange;
+  left: 71px;
+  margin-top: 3px;
+}
+.usercard__left-close:before {
+  transform: rotate(45deg);
+}
+.usercard__left-close:after {
+  transform: rotate(-45deg);
+}
+.usercard__right {
+  display: flex;
+  flex-direction: column;
 }
