@@ -1,11 +1,66 @@
 .usercard {
   display: flex;
-  margin: 10px;
+  cursor: pointer;
+  padding: 10px 10px;
+  transition: background-color .3s ease;
+}
+
+.usercard:hover {
+  background: rgba(85, 206, 24, 0.42);
 }
 
 .usercard__left-icon {
   width: 40px;
   height: 40px;
-  background: red;
   border-radius: 50%;
+  background-size: cover;
+}
+
+.usercard__left-button {
+  width: 40px;
+  height: 40px;
+  background: green;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 10px;
+  transition: background-color .3s ease;
+}
+
+.usercard:hover .usercard__left-button {
+  background: #fff;
+}
+
+.usercard:hover .usercard__left-button:after,
+.usercard:hover .usercard__left-button:before
+{
+  background-color: green;
+}
+
+.usercard__left-button::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: #fff;
+  height: 2px;
+  margin-top: -5px;
+  top: 57%;
+  left: 32%;
+  right: 5px;
+  z-index: 9;
+  width: 15px;
+  transition: background-color .3s ease;
+}
+.usercard__left-button::before {
+  transition: background-color .3s ease;
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: #fff;
+  width: 2px;
+  margin-left: -5px;
+  left: 60%;
+  top: 30%;
+  height: 15px;
+  bottom: 5px;
+  z-index: 9;
 }

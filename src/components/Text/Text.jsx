@@ -55,5 +55,5 @@ Text.defaultProps = {
   size: '14px',
   weight: 400,
   color: 'gray',
-  uppercase: true,
+  uppercase: false,
 }
