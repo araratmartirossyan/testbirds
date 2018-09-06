@@ -14,6 +14,7 @@ export default class Text extends Component {
       lineHeight,
       color,
       uppercase,
+      required
     } = this.props
     const Tag = component
     const height = lineHeight && `${lineHeight}px`
@@ -23,7 +24,8 @@ export default class Text extends Component {
         className={cx({
           text: true,
           block: block,
-          uppercase: uppercase
+          uppercase: uppercase,
+          required: required
         })}
         style={{
           fontSize: size,
@@ -46,6 +48,7 @@ Text.propTypes = {
   color: string,
   children: node,
   weight: number,
+  required: bool
 }
 
 Text.defaultProps = {
@@ -56,4 +59,5 @@ Text.defaultProps = {
   weight: 400,
   color: 'gray',
   uppercase: false,
+  required: false
 }

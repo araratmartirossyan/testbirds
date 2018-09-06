@@ -4,8 +4,8 @@ import Text from '../Text'
 import './UserCard.css'
 
 const DEFAULT_TEXT = 'Add team member \n to this test'
-const newText = DEFAULT_TEXT.split('\n').map(i =>
-  <span style={{ display: 'block' }}>{i}</span>)
+const newText = DEFAULT_TEXT.split('\n').map((i, key) =>
+  <span style={{ display: 'block' }} key={key}>{i}</span>)
 
 export default class UserCard extends Component {
   renderLeftSide = ({ picture, id }) =>
@@ -19,7 +19,9 @@ export default class UserCard extends Component {
       <div
         onClick={this.handleRemoveUser(id)}
         className='usercard__left-close'
-      />
+      >
+        <div className='usercard__popover'>Remove user</div>
+      </div>
     </div>
 
   renderSelectCard = ({ picture }) =>
@@ -35,9 +37,10 @@ export default class UserCard extends Component {
 
   renderRightSide = ({ username, role }) => {
     const existingRole = role === 'Admin' ? role : `${role} member`
+    const isRequired = role === 'External'
     return (
       <div className='usercard__right'>
-        <Text>
+        <Text required={isRequired}>
           {existingRole}
         </Text>
         <Text>

@@ -22,3 +22,8 @@
 .wrapText {
   overflow: hidden;
 }
+
+.required:after {
+  content:" *";
+  color: orange;
+}

@@ -39,7 +39,7 @@
 .usercard:hover .usercard__left-button:after,
 .usercard:hover .usercard__left-button:before
 {
-  background-color: green;
+  background-color: rgba(85, 206, 24, 0.42);
 }
 .usercard_select {
   padding: 8px 10px;
@@ -84,6 +84,13 @@
 .usercard__left-close:hover {
   border: 1px solid orange;
 }
+.usercard__left-close:hover .usercard__popover  {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0,-20px);
+  transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
 .usercard__left-close:before, .usercard__left-close:after {
   position: absolute;
   content: ' ';
@@ -104,6 +111,32 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+}
+.usercard__popover {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: -20px;
+  top: -22px;
+  transform: translate(0,10px);
+  background-color: #fff;
+  padding: 10px;
+  font-size: 10px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: 60px;
+}
+.usercard__popover:before {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  right: calc(50% - 10px);
+  bottom: -19px;
+  transform: rotate(180deg);
+  border-style: solid;
+  border-width: 10px 10px 10px 10px;
+  border-color: transparent transparent #fff transparent;
+  transition-duration: 0.3s;
+  transition-property: transform;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {

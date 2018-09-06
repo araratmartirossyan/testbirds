@@ -7,7 +7,7 @@ import Text from '../Text'
 import './Select.css'
 
 const EMPTY_TEXT_HEADER = 'Team member not found.'
-const EMPTY_TEXT_FOOTER = 'Maybe she/he is not yet in your team?'
+const EMPTY_TEXT_FOOTER = 'Maybe she/he is not yet in your'
 
 export default class Select extends Component {
   state = {
@@ -16,7 +16,12 @@ export default class Select extends Component {
   }
 
   componentWillMount() {
-    this.updateUsersList()
+    const { users } = this.props
+    const existingList = getItemFromStorage('users')
+    this.setState({
+      filteredList: difference(users, existingList),
+      userList: difference(users, existingList)
+    })
   }
 
   updateUsersList = () => {
@@ -24,6 +29,7 @@ export default class Select extends Component {
     const existingList = getItemFromStorage('users')
     this.setState({
       userList: difference(users, existingList),
+      filteredList: difference(users, existingList)
     })
   }
 
@@ -52,6 +58,7 @@ export default class Select extends Component {
       filteredList,
       value
     })
+    if (isEmpty(value)) this.updateUsersList()
   }
 
   renderEmptyBlock = () =>
@@ -66,14 +73,15 @@ export default class Select extends Component {
         color='black'
         size='13px'
       >
-        {EMPTY_TEXT_FOOTER}
+        {EMPTY_TEXT_FOOTER} <span className='empty-block_red'>team?</span>
       </Text>
     </div>
 
   render() {
-    const { filteredList, value } = this.state
+    const { filteredList } = this.state
     const { handleClickOutside } = this.props
-    const isShowUserList = !isEmpty(filteredList)
+    const isEmptyBlockAppear = isEmpty(filteredList)
+
     return (
       <ClickOutside onClickOutside={handleClickOutside}>
         <div className='select'>
@@ -83,8 +91,8 @@ export default class Select extends Component {
               onInput={this.handleSearch}
             />
           </div>
-          {isShowUserList && filteredList.map(this.renderUserCard)}
-          {!isShowUserList && this.renderEmptyBlock()}
+          {filteredList.map(this.renderUserCard)}
+          {isEmptyBlockAppear && this.renderEmptyBlock()}
         </div>
       </ClickOutside>
     )

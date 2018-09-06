@@ -12,7 +12,8 @@ const headerText = 'Your team for this test'
 export default class App extends Component {
   state = {
     isSelectOpen: false,
-    usersList: []
+    usersList: [],
+    limit: 5
   }
 
   componentWillMount() {
@@ -26,10 +27,17 @@ export default class App extends Component {
     this.setState({
       isSelectOpen: !this.state.isSelectOpen
     })
+  
+  showMore = () =>
+    this.setState({
+      limit: this.state.limit + 5
+    })
 
   updateList = usersList => {
     setItemToStorage('users', usersList)
-    this.setState({ usersList })
+    this.setState({
+      usersList
+    })
   }
 
   putUser = user => {
@@ -52,26 +60,35 @@ export default class App extends Component {
     />
 
   renderHeader = () =>
-    <div className="app__top">
+    <div className='app__top'>
       <Text uppercase>
         {headerText}
       </Text>
+      <div className='app__top-right'>
+        <span className='app__top-right_text'>Team Page</span>
+        <img
+          className='app__top-icon'
+          src={`${process.env.PUBLIC_URL}/users-solid.svg`}
+          alt='head'
+        />
+      </div>
     </div>
 
   render() {
     const { users } = this.props
-    const { isSelectOpen, usersList } = this.state
+    const { isSelectOpen, usersList, limit } = this.state
+    const isShowMore = usersList.length >= limit && limit < users.length
 
     return (
-      <div className="app">
+      <div className='app'>
         <Wrapper>
           {this.renderHeader()}
-          <div className="app__bottom">
+          <div className='app__bottom'>
             <UserCard
               mode='default'
               handleOpenSelect={this.openSelect}
             />
-            {usersList.map(
+            {usersList.slice(0, limit).map(
               (user, key) =>
                 this.renderUser(user, key)
             )}
@@ -82,9 +99,12 @@ export default class App extends Component {
             />}
           </div>
         </Wrapper>
-        <div className='app__loadmore' onClick={this.props.loadMore}>
+        {isShowMore && <div
+          className='app__loadmore'
+          onClick={this.showMore}
+        >
           Show All
-        </div>
+        </div>}
       </div>
     )
   }
