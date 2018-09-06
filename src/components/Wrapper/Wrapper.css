@@ -7,4 +7,5 @@
   height: auto;
   flex-direction: column;
   padding: 20px;
+  position: relative;
 }

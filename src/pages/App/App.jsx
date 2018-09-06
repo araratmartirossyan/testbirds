@@ -75,12 +75,12 @@ export default class App extends Component {
               (user, key) =>
                 this.renderUser(user, key)
             )}
+            {isSelectOpen && <Select
+              handleClickOutside={this.openSelect}
+              users={users}
+              handlePutUser={this.putUser}
+            />}
           </div>
-          {isSelectOpen && <Select
-            handleClickOutside={this.openSelect}
-            users={users}
-            handlePutUser={this.putUser}
-          />}
         </Wrapper>
         <div className='app__loadmore' onClick={this.props.loadMore}>
           Show All

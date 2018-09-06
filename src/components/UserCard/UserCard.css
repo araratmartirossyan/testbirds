@@ -1,7 +1,9 @@
 .usercard {
   display: flex;
   cursor: pointer;
-  padding: 10px 10px;
+  padding: 10px;
+  width: calc(100% - 20px);
+  position: relative;
   transition: background-color .3s ease;
 }
 .usercard:hover {
@@ -28,16 +30,20 @@
 }
 .usercard:hover .usercard__left-close {
   display: inherit;
+  position: relative;
 }
 .usercard:hover .usercard__left-icon_user {
   display: none;
+  position: relative;
 }
 .usercard:hover .usercard__left-button:after,
 .usercard:hover .usercard__left-button:before
 {
   background-color: green;
 }
-
+.usercard_select {
+  padding: 8px 10px;
+}
 .usercard__left-button::after {
   content: " ";
   position: absolute;
@@ -68,11 +74,12 @@
 }
 .usercard__left-close {
   width: 40px;
-  height: 40px;
+  height: 38px;
   border-radius: 50%;
   display: none;
   background: #fff;
   margin-right: 10px;
+  border: 1px solid transparent;
 }
 .usercard__left-close:hover {
   border: 1px solid orange;
@@ -83,7 +90,7 @@
   height: 33px;
   width: 2px;
   background-color: orange;
-  left: 71px;
+  left: 19px;
   margin-top: 3px;
 }
 .usercard__left-close:before {
@@ -95,4 +102,45 @@
 .usercard__right {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .usercard {
+    width: calc(100% - 20px);
+  }
+  .usercard_select {
+    padding: 8px 10px;
+    width: calc(100% - 20px);
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1299px) {
+  .usercard {
+    width: calc(50% - 20px);
+    padding: 16px 10px;
+  }
+  .usercard_select {
+    padding: 8px 10px;
+    width: calc(100% - 20px);
+  }
+}
+@media screen and (min-width: 1300px) and (max-width: 1899px) {
+  .usercard {
+    width: calc(100% - 20px);
+  }
+  .usercard_select {
+    padding: 8px 10px;
+    width: calc(100% - 20px);
+  }
+}
+@media screen and (min-width: 1900px) {
+  .usercard {
+    width: calc(50% - 20px);
+    padding: 16px 10px;
+  }
+  .usercard_select {
+    padding: 8px 10px;
+    width: calc(100% - 20px);
+  }
 }

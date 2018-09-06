@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import cx from 'classnames'
 import Text from '../Text'
 import './UserCard.css'
 
-const DEFAULT_TEXT = 'Add team member to this test'
+const DEFAULT_TEXT = 'Add team member \n to this test'
+const newText = DEFAULT_TEXT.split('\n').map(i =>
+  <span style={{ display: 'block' }}>{i}</span>)
 
 export default class UserCard extends Component {
   renderLeftSide = ({ picture, id }) =>
@@ -74,7 +77,7 @@ export default class UserCard extends Component {
           <div className='usercard__left'>
             <div className='usercard__left-button' />
           </div>
-          {this.renderDefaultText(DEFAULT_TEXT)}
+          {this.renderDefaultText(newText)}
         </div>
       )
     }
@@ -90,7 +93,13 @@ export default class UserCard extends Component {
 
     if (isSelectMode) {
       return (
-        <div className='usercard' onClick={this.handleChooseUser(user)}>
+        <div
+          className={cx({
+            usercard: true,
+            usercard_select: true
+          })}
+          onClick={this.handleChooseUser(user)}
+        >
           {this.renderSelectCard(user)}
           {this.renderRightSide(user)}
         </div>

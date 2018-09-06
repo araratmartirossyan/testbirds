@@ -77,10 +77,12 @@ export default class Select extends Component {
     return (
       <ClickOutside onClickOutside={handleClickOutside}>
         <div className='select'>
-          <input
-            className='select__input'
-            onInput={this.handleSearch}
-          />
+          <div className='input__wrapper'>
+            <input
+              className='select__input'
+              onInput={this.handleSearch}
+            />
+          </div>
           {isShowUserList && filteredList.map(this.renderUserCard)}
           {!isShowUserList && this.renderEmptyBlock()}
         </div>
