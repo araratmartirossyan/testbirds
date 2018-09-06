@@ -36,13 +36,13 @@ export default class UserCard extends Component {
 
 
   render() {
-    const { user, mode } = this.props
+    const { user, mode, handleOpenSelect, handleChooseUser } = this.props
     const isUserMode = mode === 'user'
     const isDefaultMode = mode === 'default'
 
     if (isDefaultMode) {
       return (
-        <div className="usercard">
+        <div className="usercard" onClick={handleOpenSelect}>
           <div className="usercard__left">
             <div className="usercard__left-button" />
           </div>
@@ -53,7 +53,7 @@ export default class UserCard extends Component {
 
     if (isUserMode) {
       return (
-        <div className="usercard">
+        <div className="usercard" onClick={handleChooseUser(user)}>
           {this.renderLeftSide(user)}
           {this.renderRightSide(user)}
         </div>

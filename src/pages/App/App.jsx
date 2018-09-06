@@ -8,6 +8,14 @@ import './App.css'
 const headerText = 'Your team for this test'
 
 export default class App extends Component {
+  state = {
+    isSelectOpen: false
+  }
+
+  openSelect = () =>
+    this.setState({
+      isSelectOpen: !this.state.isSelectOpen
+    })
 
   renderUser = (user = {}, key, mode) =>
     <UserCard
@@ -25,18 +33,26 @@ export default class App extends Component {
 
   render() {
     const { users } = this.props
+    const { isSelectOpen } = this.state
+
     return (
       <div className="app">
         <Wrapper>
           {this.renderHeader()}
           <div className="app__bottom">
-            <UserCard mode='default' />
+            <UserCard
+              mode='default'
+              handleOpenSelect={this.openSelect}
+            />
             {users.map(
               (user, key) =>
                 this.renderUser(user, key)
             )}
           </div>
-          {isSelectOpen && <Select users={users} />}
+          {isSelectOpen && <Select
+            handleClickOutside={this.openSelect}
+            users={users}
+          />}
         </Wrapper>
       </div>
     )
